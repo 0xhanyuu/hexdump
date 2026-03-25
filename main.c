@@ -5,7 +5,16 @@ void hexdump(FILE * file)
 	// Define character to use for reading.
 	char current_char;
 
-	unsigned long int total = 0;
+	// Total number of characters read.
+	unsigned int total = 0;
+
+	// Print first line, iterate over first character, print first character
+	// - to avoid unnecessary formatting / empty initial character.
+	printf("%08x\t", total);
+	current_char = fgetc(file);
+	printf("%02x ", current_char);
+	total = total + 1;
+	current_char = fgetc(file);
 
 	// Iterate until EOF reached.
 	while (current_char != EOF)
@@ -14,13 +23,13 @@ void hexdump(FILE * file)
 		{
 			case 0:
 			printf("%s", "\n");
-			printf("%8x\t", total);
+			printf("%08x\t", total);
 			break;
 
 			default:
 			break;
 		}
-		printf("%2x ", current_char);
+		printf("%02x ", current_char);
 
 		total = total + 1;
 		current_char = fgetc(file);
